@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<title>Thi Tin học Tiểu học</title>
+<title>Hệ thống thi Tin học</title>
 
 <style>
 body {
@@ -12,36 +12,53 @@ body {
 }
 
 .container {
-    background:white;
     width:85%;
     margin:20px auto;
+    background:white;
     padding:20px;
     border-radius:15px;
+    box-shadow:0 0 10px gray;
 }
+
+h2 { color:#ff6f61; }
 
 .question {
     text-align:left;
-    margin:10px;
     padding:10px;
+    margin:10px;
     background:#f1f3f5;
     border-radius:10px;
+    transition:0.3s;
+}
+
+.question:hover {
+    background:#ffe066;
+    transform:scale(1.02);
 }
 
 button {
     padding:10px;
+    border:none;
     background:#28a745;
     color:white;
-    border:none;
     border-radius:10px;
     cursor:pointer;
 }
 
-button:hover { background:orange; }
-
-#timer { color:red; font-weight:bold; }
+button:hover {
+    background:orange;
+    transform:scale(1.1);
+}
 
 ul { text-align:left; }
+
+#timer {
+    color:red;
+    font-weight:bold;
+    font-size:20px;
+}
 </style>
+
 </head>
 
 <body>
@@ -50,8 +67,8 @@ ul { text-align:left; }
 
 <script>
 
-// ===== LOGIN =====
-function showLogin(){
+// ================= LOGIN =================
+function loginUI(){
 document.getElementById("app").innerHTML = `
 <h2>🎓 Đăng nhập</h2>
 <input id="name" placeholder="Họ tên"><br><br>
@@ -67,7 +84,7 @@ document.getElementById("app").innerHTML = `
 `;
 }
 
-// ===== NGÂN HÀNG TỪ DOC =====
+// ================= NGÂN HÀNG (TỪ DOC) =================
 const bank = {
 
 3:[
@@ -93,7 +110,7 @@ const bank = {
 
 };
 
-// ===== BẮT ĐẦU =====
+// ================= THI =================
 function startExam(){
 
 let name=document.getElementById("name").value;
@@ -104,15 +121,17 @@ localStorage.setItem("grade",grade);
 
 let questions = bank[grade].sort(()=>Math.random()-0.5);
 
-let html = `<h2>📝 Bài thi lớp ${grade}</h2>
-<p id="timer">⏰ 35:00</p>`;
+let html = `
+<h2>📝 Bài thi lớp ${grade}</h2>
+<p id="timer">⏰ 35:00</p>
+`;
 
 // ===== TRẮC NGHIỆM =====
 questions.forEach((q,i)=>{
 html+=`<div class="question">
 <p>${i+1}. ${q.q}</p>`;
-q.a.forEach(op=>{
-html+=`<input type="radio" name="q${i}" value="${op[0]}"> ${op}<br>`;
+q.a.forEach(opt=>{
+html+=`<input type="radio" name="q${i}" value="${opt[0]}"> ${opt}<br>`;
 });
 html+=`</div>`;
 });
@@ -122,14 +141,13 @@ if(grade==3){
 html+=`
 <h3>🛠 THỰC HÀNH</h3>
 <ul>
-<li>🔹 Mở PowerPoint</li>
-<li>🔹 Tạo slide giới thiệu bản thân</li>
-<li>🔹 Tạo slide hoa phượng</li>
-<li>🔹 Chèn hình ảnh</li>
-<li>🔹 Chỉnh font Arial</li>
-<li>🔹 Sắp xếp nội dung</li>
-<li>🔹 Tạo thư mục ổ D</li>
-<li>🔹 Lưu: Gioithieubanthan</li>
+<li>📁 Tạo thư mục trong ổ D</li>
+<li>📊 Mở PowerPoint</li>
+<li>Slide 1: Giới thiệu bản thân</li>
+<li>Slide 2: Giới thiệu hoa phượng</li>
+<li>🖼 Chèn hình ảnh</li>
+<li>🔤 Font Arial</li>
+<li>💾 Lưu: Gioithieubanthan</li>
 </ul>`;
 }
 
@@ -137,14 +155,14 @@ if(grade==4){
 html+=`
 <h3>🛠 THỰC HÀNH</h3>
 <ul>
-<li>🔹 Tạo thư mục Tên em_Lớp 4</li>
-<li>🔹 Mở Scratch</li>
-<li>🔹 Khi bấm cờ xanh</li>
-<li>🔹 Nhân vật nói “Xin chào”</li>
-<li>🔹 Di chuyển 10 bước</li>
-<li>🔹 Tạo PowerPoint 2 slide</li>
-<li>🔹 Chèn hình ảnh</li>
-<li>🔹 Lưu file</li>
+<li>📁 Tạo thư mục Tên em_Lớp 4</li>
+<li>🎮 Mở Scratch</li>
+<li>🚩 Bấm cờ xanh</li>
+<li>💬 Nói “Xin chào các bạn!”</li>
+<li>➡ Di chuyển 10 bước</li>
+<li>📊 Tạo PowerPoint 3 slide</li>
+<li>✨ Thêm hiệu ứng</li>
+<li>💾 Lưu bài</li>
 </ul>`;
 }
 
@@ -152,16 +170,13 @@ if(grade==5){
 html+=`
 <h3>🛠 THỰC HÀNH</h3>
 <ul>
-<li>🔹 Tạo thư mục Tên em_Lớp 5</li>
-<li>🔹 Mở Scratch</li>
-<li>🔹 Khi bấm cờ xanh</li>
-<li>🔹 Nhân vật nói “Xin chào”</li>
-<li>🔹 Di chuyển 10 bước</li>
-<li>🔹 Xoay 90 độ</li>
-<li>🔹 Lưu bài</li>
+<li>📁 Tạo thư mục Tên em_Lớp 5</li>
+<li>🎮 Scratch: nói + di chuyển + xoay</li>
+<li>📐 Tính diện tích hình vuông</li>
 </ul>
 
 <h3>🧠 TỰ LUẬN</h3>
+<p>Tại sao cần chạy thử chương trình?</p>
 <textarea id="essay" style="width:100%;height:80px"></textarea>
 `;
 }
@@ -172,9 +187,9 @@ html+=`
 <p id="result"></p>
 `;
 
-document.getElementById("app").innerHTML=html;
+document.getElementById("app").innerHTML = html;
 
-// TIMER
+// ===== TIMER =====
 let time=35*60;
 let t=setInterval(()=>{
 let m=Math.floor(time/60);
@@ -187,26 +202,26 @@ submitExam();
 }
 },1000);
 
-window.currentQuestions=questions;
+window.currentQuestions = questions;
 }
 
-// ===== CHẤM =====
+// ================= CHẤM =================
 function submitExam(){
 
 let score=0;
 
 window.currentQuestions.forEach((q,i)=>{
 let c=document.querySelector(`input[name="q${i}"]:checked`);
-if(c && c.value==q.c) score++;
+if(c && c.value===q.c) score++;
 });
 
-let essay=document.getElementById("essay")?.value||"";
-let essayScore=essay.length>20?2:0;
+let essay=document.getElementById("essay")?.value || "";
+let essayScore = essay.length > 20 ? 2 : 0;
 
-let total=score+essayScore;
+let total = score + essayScore;
 
 // LƯU
-let data=JSON.parse(localStorage.getItem("students")||"[]");
+let data = JSON.parse(localStorage.getItem("students")||"[]");
 
 data.push({
 name:localStorage.getItem("name"),
@@ -218,15 +233,16 @@ total
 
 localStorage.setItem("students",JSON.stringify(data));
 
-document.getElementById("result").innerHTML=`🎉 Tổng điểm: ${total}`;
+document.getElementById("result").innerHTML =
+`🎉 Tổng điểm: ${total}`;
 }
 
-// ===== GIÁO VIÊN =====
+// ================= GIÁO VIÊN =================
 function showTeacher(){
 
-let data=JSON.parse(localStorage.getItem("students")||"[]");
+let data = JSON.parse(localStorage.getItem("students")||"[]");
 
-let html=`<h2>📊 Bảng điểm</h2>
+let html = `<h2>📊 Bảng điểm</h2>
 <table border="1" width="100%">
 <tr><th>Tên</th><th>Lớp</th><th>TN</th><th>TL</th><th>Tổng</th></tr>`;
 
@@ -241,13 +257,13 @@ html+=`<tr>
 });
 
 html+=`</table><br>
-<button onclick="showLogin()">⬅ Quay lại</button>`;
+<button onclick="loginUI()">⬅ Quay lại</button>`;
 
-document.getElementById("app").innerHTML=html;
+document.getElementById("app").innerHTML = html;
 }
 
 // START
-showLogin();
+loginUI();
 
 </script>
 
